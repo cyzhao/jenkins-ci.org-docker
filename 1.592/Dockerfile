@@ -1,6 +1,7 @@
 FROM java:openjdk-7u65-jdk
 
-RUN apt-get update && apt-get install -y wget git curl zip && rm -rf /var/lib/apt/lists/*
+# lib32stdc++6 and lib32z1 are needed by android-sdk-linux for android gradle builds
+RUN apt-get update && apt-get install -y wget git curl zip lib32stdc++6 lib32z1 && rm -rf /var/lib/apt/lists/*
 
 ENV JENKINS_HOME /var/jenkins_home
 
@@ -17,7 +18,6 @@ VOLUME /var/jenkins_home
 # to set on a fresh new installation. Use it to bundle additional plugins 
 # or config file with your custom jenkins Docker image.
 RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
-
 
 COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-angent-port.groovy
 
