@@ -1,7 +1,14 @@
 FROM java:openjdk-7u65-jdk
 
 # lib32stdc++6 and lib32z1 are needed by android-sdk-linux for android gradle builds
-RUN apt-get update && apt-get install -y wget git curl zip lib32stdc++6 lib32z1 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y wget git curl zip lib32stdc++6 lib32z1 locales && rm -rf /var/lib/apt/lists/*
+
+RUN echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && \
+  locale-gen
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
 
 ENV JENKINS_HOME /var/jenkins_home
 
